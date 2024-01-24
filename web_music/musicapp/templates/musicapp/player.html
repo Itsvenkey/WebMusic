@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Audio Player</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            height: 100vh; /* Ensure full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #custom-audio-player {
+            position: fixed;
+            bottom: 10%;
+            width: 50%; /* Set the width to half of the page */
+            background-color: #333; /* Adjust as needed */
+            color: #fff; /* Adjust as needed */
+            text-align: center; /* Center text inside the bar */
+            margin-bottom: 20px; /* Optional: Add space between the bar and the bottom */
+        }
+    </style>
+</head>
+<body>
+    <!-- Your audio player container -->
+    <div id="custom-audio-player">
+        <!-- Plyr will add the player UI here -->
+        <audio controls id="audio-player" src="{{ format_data.0.url }}">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Plyr library -->
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Plyr
+            const player = new Plyr('#audio-player', {
+                controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'], // Customize controls
+            });
+        });
+    </script>
+</body>
+</html>

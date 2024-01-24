@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+</head>
+<body class="bg-dark ">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <form method="post" action="" class="input-group" >
+                {% csrf_token %}
+                
+                <input type="text" class="form-control input-group input-group-text" name="query" placeholder="Choose your city..." required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary ">Search</button>
+                </div>
+            </form>
+        </div>
+    
+        {% if video_info %}
+        <h2>Song Names:</h2>
+        <!-- Update the song list rendering to call playSong function -->
+<ul>
+    {% for info in video_info %}
+        <li><a href="javascript:void(0);" onclick="playSong('{{ info.video_id }}')">{{ info.title }}</a></li>
+    {% endfor %}
+</ul>
+
+    {% endif %}
+    </div>
+    <script>
+    function playSong(videoId) {
+        fetch(`/youtube-search/${videoId}`)
+            .then(response => response.json())
+            .then(data => {
+                const audioPlayer = document.getElementById('audio-player');
+                audioPlayer.src = data.format_data[0].url;
+                const player = new Plyr('#audio-player', {
+                    controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+                });
+                player.play();
+            })
+            .catch(error => console.error('Error fetching song data:', error));
+    }
+</script>
+</body>
+</html>

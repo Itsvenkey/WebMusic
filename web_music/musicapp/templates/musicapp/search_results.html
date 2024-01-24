@@ -1,0 +1,30 @@
+<!-- musicapp/templates/musicapp/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Music Search</title>
+</head>
+<body>
+
+  {% if video_info %}
+    <h2>Song Details</h2>
+    {% for video in video_info %}
+      <div>
+        <img src="{{ video.thumbnail }}" alt="{{ video.title }} Thumbnail" width="60" height="60">
+        <p>Title: <a href="{{ video.watch_url }}" target="_blank">{{ video.title }}</a></p>
+        <p>Artists: {{ video.artists }}</p>
+        <p>Album: {{ video.album }}</p>
+        <p>Duration: {{ video.duration }}</p>
+        <p>Views: {{ video.views }}</p>
+        <hr>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+
+</body>
+</html>
